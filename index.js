@@ -6,8 +6,13 @@
  */
 
 import pusher from "./core/pusher.js";
+import Koa from "koa";
 
-function main() {
+const app = new Koa();
+
+let msg = "";
+
+try {
   setInterval(() => {
     const date = new Date();
     // 发出提醒
@@ -19,7 +24,17 @@ function main() {
       pusher("确认完成了青年大学习吧");
     }
   }, 60 * 1000);
+  msg = "服务启动完成";
+} catch (error) {
+  msg = error;
 }
 
-// 运行
-main();
+app.use((ctx) => {
+  ctx.body = {
+    msg,
+  };
+});
+
+app.listen(7788, () => {
+  console.log("项目启动");
+});
