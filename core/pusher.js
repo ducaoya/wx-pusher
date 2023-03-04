@@ -16,12 +16,19 @@ const appToken = "AT_70YJvySWGC0O6YUDj9bolv6u2mnL1IBf";
  */
 export default async function pusher(
   content,
+  isTest = false,
   summary = content,
   contentType = 1
 ) {
   const url = "https://wxpusher.zjiecode.com/api/send/message";
 
-  const uids = await getUserIDs();
+  let uids = [];
+
+  if (isTest) {
+    uids = ["UID_Jz6PaE1GzntYtnoPpcRjTg2PDg1B"];
+  } else {
+    uids = await getUserIDs();
+  }
 
   const res = await axios.post(url, {
     appToken,
@@ -37,6 +44,7 @@ export default async function pusher(
   });
 
   console.log(res.data);
+  return res.data;
 }
 
 /**
