@@ -50,6 +50,7 @@ function runServer() {
         data.confirmCount += 1;
       });
     }
+    data.loopCount += 1;
   }, 60 * 1000);
   data.msg = "服务启动完成";
 }
