@@ -14,6 +14,10 @@ const app = new Koa();
 let msg = "";
 // 循环次数
 let count = 0;
+// 发送次数
+let sendCount = 0;
+// 确认次数
+let confirmCount = 0;
 
 try {
   setInterval(() => {
@@ -21,10 +25,12 @@ try {
     // 发出提醒
     if (date.getHours() === 12 && date.getMinutes() === 0) {
       pusher("记得完成青年大学习哦");
+      sendCount++;
     }
     // 发出确认
     if (date.getHours() === 17 && date.getMinutes() === 0) {
       pusher("确认完成了青年大学习吧");
+      confirmCount++;
     }
     count++;
   }, 60 * 1000);
@@ -37,6 +43,8 @@ app.use((ctx) => {
   ctx.body = {
     msg,
     count,
+    sendCount,
+    confirmCount,
   };
 });
 
