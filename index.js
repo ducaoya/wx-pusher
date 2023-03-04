@@ -10,7 +10,10 @@ import Koa from "koa";
 
 const app = new Koa();
 
+// 运行状态
 let msg = "";
+// 循环次数
+let count = 0;
 
 try {
   setInterval(() => {
@@ -23,6 +26,7 @@ try {
     if (date.getHours() === 17 && date.getMinutes() === 0) {
       pusher("确认完成了青年大学习吧");
     }
+    count++;
   }, 60 * 1000);
   msg = "服务启动完成";
 } catch (error) {
@@ -32,6 +36,7 @@ try {
 app.use((ctx) => {
   ctx.body = {
     msg,
+    count,
   };
 });
 
